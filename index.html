@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Yemek Platformu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: red;
+      color: white;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      color: black;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Yemek Platformuma Hoş Geldin 🍔</h1>
-  <p>Sistem çalışıyor!</p>
 
-  <button>Menüyü Gör</button>
+<h1>🍔 Yemek Platformu</h1>
+
+<div id="menu"></div>
+
+<a href="admin.html">Admin Panel</a>
+
+<script>
+let menu = JSON.parse(localStorage.getItem("menu")) || [];
+
+function render() {
+  let html = "";
+  menu.forEach(m => {
+    html += `<div class="card">${m}</div>`;
+  });
+  document.getElementById("menu").innerHTML = html;
+}
+
+render();
+</script>
+
 </body>
 </html>
