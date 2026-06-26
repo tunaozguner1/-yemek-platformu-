@@ -18,6 +18,12 @@
       padding: 10px;
       border-radius: 10px;
     }
+    .footer {
+      margin-top: 30px;
+      padding: 15px;
+      background: black;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -26,7 +32,9 @@
 
 <div id="menu"></div>
 
-<a href="admin.html">Admin Panel</a>
+<div class="footer">
+  📞 Sipariş için: 0535 255 1036
+</div>
 
 <script>
 let menu = JSON.parse(localStorage.getItem("menu")) || [];
