@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+
+    .item {
+      background: #eee;
+      margin: 5px auto;
+      padding: 10px;
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔐 Admin Panel</h1>
+
+<input type="password" id="pass" placeholder="Şifre">
+<button onclick="login()">Giriş</button>
+
+<div id="panel" style="display:none;">
+  <h2>🍔 Yemek Yönetimi</h2>
+
+  <input id="food" placeholder="Yemek adı">
+  <button onclick="addFood()">Ekle</button>
+
+  <div id="list"></div>
+</div>
+
+<script>
+let PASSWORD = "1234";
+
+function login() {
+  if(document.getElementById("pass").value === PASSWORD) {
+    document.getElementById("panel").style.display = "block";
+    render();
+  } else {
+    alert("Yanlış şifre");
+  }
+}
+
+function getMenu() {
+  return JSON.parse(localStorage.getItem("menu")) || [];
+}
+
+function saveMenu(menu) {
+  localStorage.setItem("menu", JSON.stringify(menu));
+}
+
+function addFood() {
+  let menu = getMenu();
+  let food = document.getElementById("food").value;
+
+  if(food === "") return;
+
+  menu.push(food);
+  saveMenu(menu);
+  render();
+}
+
+function deleteFood(index) {
+  let menu = getMenu();
+  menu.splice(index, 1);
+  saveMenu(menu);
+  render();
+}
+
+function render() {
+  let menu = getMenu();
+  let html = "";
+
+  menu.forEach((m, i) => {
+    html += `
+      <div class="item">
+        ${m}
+        <button onclick="deleteFood(${i})">X</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("list").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
